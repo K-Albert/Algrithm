@@ -64,9 +64,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="action_matrix.cpp" />
+    <ClCompile Include="matrix.cpp" />
     <ClCompile Include="tubu_search.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="action_matrix.h" />
+    <ClInclude Include="matrix.h" />
     <ClInclude Include="tubu_search.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
