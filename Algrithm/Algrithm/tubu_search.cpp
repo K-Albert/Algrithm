@@ -9,11 +9,11 @@ uint32_t row2swap = 0;
 uint32_t colum2swap = 0;
 double cclResult(char* vector, Matrix &dis)
 {
-	Matrix t_result(5, 5, ZERO);
+	Matrix t_result(SIZE, SIZE, ZERO);
 	double result = 0;
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < SIZE; i++)
 	{
-		for (int j = 0; j < 5; j++)
+		for (int j = 0; j < SIZE; j++)
 		{
 			if (vector[j] - vector[i] == 1 || vector[j] - vector[i] == (size-1))
 				t_result[i][j] = 1;
@@ -34,7 +34,7 @@ double cclResult(char* vector, Matrix &dis)
 double opt_2(Matrix &delta,Matrix & dis,Matrix &tubu,char* vector,double result)
 {
 	char* temp_result_vector;
-	temp_result_vector = new char[5];
+	temp_result_vector = new char[SIZE];
 	double result_new = 0;
 
 
@@ -44,7 +44,7 @@ double opt_2(Matrix &delta,Matrix & dis,Matrix &tubu,char* vector,double result)
 		{
 			if (i != j && !tubu[i][j])
 			{
-				memcpy(temp_result_vector, vector, 5);//watch out
+				memcpy(temp_result_vector, vector, SIZE);//watch out
 				swap(temp_result_vector[i], temp_result_vector[j]);
 				result_new = cclResult(temp_result_vector, dis);
 				//cout << result_new << endl;
@@ -71,7 +71,7 @@ double opt_2(Matrix &delta,Matrix & dis,Matrix &tubu,char* vector,double result)
 		}
 	}
 
-	memcpy(temp_result_vector, vector, 5);  //watch out
+	memcpy(temp_result_vector, vector, SIZE);  //watch out
 	swap(temp_result_vector[row2swap], temp_result_vector[colum2swap]);
 	result_new = cclResult(temp_result_vector, dis);
 
@@ -81,7 +81,7 @@ double opt_2(Matrix &delta,Matrix & dis,Matrix &tubu,char* vector,double result)
 double breakTubu(Matrix &delta, Matrix & dis, Matrix &tubu, char* vector, double result)
 {
 	char* temp_result_vector;
-	temp_result_vector = new char[5];
+	temp_result_vector = new char[SIZE];
 	double result_new = 0;
 
 
@@ -91,7 +91,7 @@ double breakTubu(Matrix &delta, Matrix & dis, Matrix &tubu, char* vector, double
 		{
 			if (i != j )
 			{
-				memcpy(temp_result_vector, vector, 5);//watch out
+				memcpy(temp_result_vector, vector, SIZE);//watch out
 				swap(temp_result_vector[i], temp_result_vector[j]);
 				result_new = cclResult(temp_result_vector, dis);
 				//cout << result_new << endl;
@@ -118,7 +118,7 @@ double breakTubu(Matrix &delta, Matrix & dis, Matrix &tubu, char* vector, double
 		}
 	}
 
-	memcpy(temp_result_vector, vector, 5);  //watch out
+	memcpy(temp_result_vector, vector, SIZE);  //watch out
 	swap(temp_result_vector[row2swap], temp_result_vector[colum2swap]);
 	result_new = cclResult(temp_result_vector, dis);
 
@@ -150,7 +150,7 @@ bool abnormalStop(Matrix &Tubu)
 				cnt++;
 		}
 	}
-	if (cnt >= C(5, 2))
+	if (cnt >= C(SIZE, 2))
 		return false;
 	else
 		return true;
