@@ -15,7 +15,7 @@ double cclResult(char* vector, Matrix &dis)
 	{
 		for (int j = 0; j < 5; j++)
 		{
-			if (vector[j] - vector[i] == 1)
+			if (vector[j] - vector[i] == 1 || vector[j] - vector[i] == (size-1))
 				t_result[i][j] = 1;
 		}
 	}
