@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include "matrix.h"
+#define SIZE 5
 uint32_t A(uint32_t m, uint32_t n);
 uint32_t C(uint32_t m, uint32_t n);
 double cclResult(char* vector, Matrix &dis);

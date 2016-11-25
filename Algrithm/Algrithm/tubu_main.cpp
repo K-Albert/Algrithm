@@ -5,24 +5,32 @@
 #include <stdlib.h>
 using namespace std;
 
-#define NG 55
+#define NG 15
 
 int dis[10] = { 10, 15, 6, 2, 8, 13, 9, 20, 15, 5 };
 void main()
 {
 	bool stop = false;
-	Matrix Dis(5, 5);
-	Matrix Tubu(5, 5, ZERO);
-	Matrix Delta(5, 5, ZERO);
+	int size = 0;
+	cout << "请输入：";
+	cin >> size;
+
+	//如何能让输入的size改变所有的size
+	Matrix Dis(SIZE, SIZE);
+	Matrix Tubu(SIZE, SIZE, ZERO);
+	Matrix Delta(SIZE, SIZE, ZERO);
+
+
+
 	// 极大化目标
 	double result = 0;
 	int cnt = 0;
 	//渴望水平
 	double egar = 0,result_egar=0;
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < SIZE; i++)
 	{
-		for (int j = i; j < 5; j++)
+		for (int j = i; j < SIZE; j++)
 		{
 			if (i == j)
 				Dis[i][j] = 0;
@@ -34,7 +42,7 @@ void main()
 
 	//设置初始路径	数字代表顺序
 	char* result_vector;
-	result_vector = new char[5];
+	result_vector = new char[SIZE];
 
 	
 	result_vector[0] = 1;//A
