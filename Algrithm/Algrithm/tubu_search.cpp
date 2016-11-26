@@ -4,22 +4,22 @@
 #include <stdlib.h>
 
 using namespace std;
-#define TUBU_SEIZE 15
+#define TUBU_SEIZE 50
 uint32_t row2swap = 0;
 uint32_t colum2swap = 0;
 double cclResult(char* vector, Matrix &dis)
 {
 	Matrix t_result(SIZE, SIZE, ZERO);
+
 	double result = 0;
 	for (int i = 0; i < SIZE; i++)
 	{
 		for (int j = 0; j < SIZE; j++)
 		{
-			if (vector[j] - vector[i] == 1 || vector[j] - vector[i] == (size-1))
+			if (vector[j] - vector[i] == 1 || vector[j] - vector[i] == (SIZE-1))
 				t_result[i][j] = 1;
 		}
 	}
-	//cout << t_result;
 	for (uint32_t i = 0; i < t_result.getRow(); i++)
 	{
 		for (uint32_t j = 0; j < t_result.getColum(); j++)
@@ -62,7 +62,7 @@ double opt_2(Matrix &delta,Matrix & dis,Matrix &tubu,char* vector,double result)
 	{
 		for (uint32_t j = i; j < delta.getColum(); j++)
 		{
-			if (delta.getData(i, j) > base_value )
+			if (delta.getData(i, j) <= base_value )
 			{
 				base_value = delta.getData(i,j);
 				row2swap = i;
@@ -109,7 +109,7 @@ double breakTubu(Matrix &delta, Matrix & dis, Matrix &tubu, char* vector, double
 	{
 		for (uint32_t j = i; j < delta.getColum(); j++)
 		{
-			if (delta.getData(i, j) > base_value)
+			if (delta.getData(i, j) <= base_value)
 			{
 				base_value = delta.getData(i, j);
 				row2swap = i;
@@ -192,4 +192,8 @@ void setLocationColum(uint32_t j)
 uint32_t getLocationColum()
 {
 	return colum2swap;
+}
+int i_pow(int x)
+{
+	return (x*x);
 }

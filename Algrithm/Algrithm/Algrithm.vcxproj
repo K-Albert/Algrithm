@@ -65,7 +65,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="action_matrix.cpp" />
-    <ClCompile Include="tubu_main.cpp" />
+    <ClCompile Include="point_30.cpp" />
     <ClCompile Include="matrix.cpp" />
     <ClCompile Include="tubu_search.cpp" />
   </ItemGroup>

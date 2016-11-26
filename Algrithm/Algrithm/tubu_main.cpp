@@ -5,15 +5,12 @@
 #include <stdlib.h>
 using namespace std;
 
-#define NG 15
+#define NG 5
 
 int dis[10] = { 10, 15, 6, 2, 8, 13, 9, 20, 15, 5 };
-void main()
+void test()
 {
 	bool stop = false;
-	int size = 0;
-	cout << "请输入：";
-	cin >> size;
 
 	//如何能让输入的size改变所有的size
 	Matrix Dis(SIZE, SIZE);
@@ -74,6 +71,7 @@ void main()
 		swap(result_vector[getLocationRow()], result_vector[getLocationColum()]);
 		//更新解、更新渴望值
 		egar = result = result_egar;
+		cout << "寻优结果：" << result << endl;
 		//更新禁忌表
 		updataTubu(Tubu);
 

@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 #include "matrix.h"
-#define SIZE 5
+#define SIZE 30
 uint32_t A(uint32_t m, uint32_t n);
 uint32_t C(uint32_t m, uint32_t n);
 double cclResult(char* vector, Matrix &dis);
@@ -15,4 +15,14 @@ void setLocationColum(uint32_t j);
 uint32_t getLocationColum();
 void updataTubu(Matrix &tubu);
 bool abnormalStop(Matrix &Tubu);
+int i_pow(int x);
+class  Point
+{
+  public:
+	  int x = 0;
+	  int y = 0;
+};
+
+
+
 #endif
