@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Algrithm", "Algrithm\Algrithm.vcxproj", "{63A4EA3E-F5B5-4903-A701-A93D0CABF466}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GA", "GA\GA.vcxproj", "{F94ACE35-285E-48D7-ABBB-03C62BA37AB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -15,6 +17,10 @@ Global
 		{63A4EA3E-F5B5-4903-A701-A93D0CABF466}.Debug|Win32.Build.0 = Debug|Win32
 		{63A4EA3E-F5B5-4903-A701-A93D0CABF466}.Release|Win32.ActiveCfg = Release|Win32
 		{63A4EA3E-F5B5-4903-A701-A93D0CABF466}.Release|Win32.Build.0 = Release|Win32
+		{F94ACE35-285E-48D7-ABBB-03C62BA37AB5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F94ACE35-285E-48D7-ABBB-03C62BA37AB5}.Debug|Win32.Build.0 = Debug|Win32
+		{F94ACE35-285E-48D7-ABBB-03C62BA37AB5}.Release|Win32.ActiveCfg = Release|Win32
+		{F94ACE35-285E-48D7-ABBB-03C62BA37AB5}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
