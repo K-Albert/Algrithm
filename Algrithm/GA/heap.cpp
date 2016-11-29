@@ -90,3 +90,48 @@ void Heap::heapSort(float H[], int lenth)
 		heapAdjust(H, 0, i);
 	}
 }
+
+void Heap::heapAdjust(GA H[], int s, int lenth)
+{
+	int child = 0;
+	GA temp ;
+	temp = H[s];
+
+	child = 2 * s + 1;
+	if (child <lenth)
+	{
+		if ((child + 1) < lenth && (H[child + 1].result < H[child].result))
+		{
+			++child;
+		}
+
+		if (H[s].result > H[child].result)
+		{
+			H[s] = H[child];
+			s = child;
+			child = 2 * s + 1;
+		}
+		H[s] = temp;
+	}
+
+}
+
+void Heap::heapInitial(GA H[], int lenth)
+{
+	for (int i = (lenth - 1) / 2; i >= 0; --i)
+	{
+		heapAdjust(H, i, lenth);
+	}
+}
+
+void Heap::heapSort(GA H[], int lenth)
+{
+	heapInitial(H, lenth);
+	for (int i = lenth - 1; i > 0; i--)
+	{
+		GA temp = H[i];
+		H[i] = H[0];
+		H[0] = temp;
+		heapAdjust(H, 0, i);
+	}
+}

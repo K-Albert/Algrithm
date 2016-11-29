@@ -21,6 +21,12 @@
     <ClCompile Include="heap.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="GA.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="lxy.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GA.h">

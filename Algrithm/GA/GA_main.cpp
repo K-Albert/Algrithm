@@ -1,20 +1,29 @@
 #include <iostream>
 #include <stdlib.h>
 #include <algorithm>
-#include <random>
+#include <time.h>
 #include "GA.h"
 #include "heap.h"
 using namespace std;
 void main()
 {
 	Heap heap;
-	float a[5] = { 9.1, 4.1, 8.9, 6.7, 6.5 };
-	heap.heapSort(a, 5);
-	//heapInitial(a, 5);
+	GA ga[5];
+	srand((unsigned)time(0));
+
 	for (int i = 0; i < 5; i++)
 	{
-		cout << a[i] << endl;
+		ga[i].result = rand();
+		ga[i].subscript = i+1;
+		cout << ga[i].result << " " << ga[i].subscript << endl;
 	}
+	heap.heapSort(ga,5);
+	for (int i = 0; i < 5; i++)
+	{
+		cout << ga[i].result <<" "<< ga[i].subscript<< endl;
+		
+	}
+
 	system("pause");
 
 }
