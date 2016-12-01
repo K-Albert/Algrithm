@@ -5,7 +5,7 @@ bool compare(int a, int b);
 class GA
 {
 public:
-	int result;
+	float result;
 	int subscript;
 	void generate();
 };

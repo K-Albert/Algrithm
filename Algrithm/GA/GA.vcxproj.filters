@@ -27,12 +27,18 @@
     <ClCompile Include="lxy.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="rand.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GA.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="heap.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="rand.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

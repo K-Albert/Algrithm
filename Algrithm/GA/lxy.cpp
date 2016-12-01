@@ -1,10 +1,9 @@
 #include <iostream>
-//#include "another.h"
 #include <array>
 #include <map>
 #include <vector>
 #include <iterator>
-#include <algorithm>)
+#include <algorithm>
 #include <stdint.h>
 using namespace std;
 
@@ -42,4 +41,5 @@ int lxy(void)
 	}
 
 	getchar();
+	return 0;
 }
