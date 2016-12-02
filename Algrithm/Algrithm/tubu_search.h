@@ -15,13 +15,7 @@ void setLocationColum(uint32_t j);
 uint32_t getLocationColum();
 void updataTubu(Matrix &tubu);
 bool abnormalStop(Matrix &Tubu);
-int i_pow(int x);
-class  Point
-{
-  public:
-	  int x = 0;
-	  int y = 0;
-};
+
 
 
 

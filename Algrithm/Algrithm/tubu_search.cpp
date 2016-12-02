@@ -193,7 +193,3 @@ uint32_t getLocationColum()
 {
 	return colum2swap;
 }
-int i_pow(int x)
-{
-	return (x*x);
-}

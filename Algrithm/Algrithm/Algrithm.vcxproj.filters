@@ -27,6 +27,9 @@
     <ClCompile Include="point_30.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="point.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tubu_search.h">
@@ -36,6 +39,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="action_matrix.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="point.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

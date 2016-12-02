@@ -4,6 +4,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
+
+#include "point.h"
 using namespace std;
 
 #define NG 55
@@ -50,7 +52,7 @@ void main()
 			if (i == j)
 				Dis[i][j] = 0;
 			else
-				Dis[i][j] = Dis[j][i]=sqrt(i_pow(point[i].x - point[j].x) + i_pow(point[i].y - point[j].y));
+				Dis[i][j] = Dis[j][i]=sqrt(point[i].i_pow(point[i].x - point[j].x) + point[i].i_pow(point[i].y - point[j].y));
 		}
 	}
 	//cout << Dis;

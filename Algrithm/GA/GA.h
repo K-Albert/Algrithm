@@ -1,7 +1,7 @@
 #ifndef _GA_H_
 #define _GA_H_
 
-
+int seletIndividual(vector<double> &proi);
 class GA
 {
 public:

@@ -64,18 +64,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Algrithm\point.cpp" />
     <ClCompile Include="GA.cpp" />
     <ClCompile Include="GA_main.cpp" />
     <ClCompile Include="heap.cpp" />
     <ClCompile Include="lxy.cpp" />
     <ClCompile Include="matrix_vector.cpp" />
     <ClCompile Include="rand.cpp" />
+    <ClCompile Include="Tour.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Algrithm\point.h" />
     <ClInclude Include="GA.h" />
     <ClInclude Include="heap.h" />
     <ClInclude Include="matrix_vector.h" />
     <ClInclude Include="rand.h" />
+    <ClInclude Include="Tour.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
