@@ -8,8 +8,15 @@
 #include <stdint.h>
 #include <vector>
 #include <iterator>
-#define RESULT_SIZE 5
+#include "matrix_vector.h"
+#define POINT_SIZE 30
+#define RESULT_SIZE 60
 using namespace std;
+bool cmp(const pair<uint32_t, float> &a, const pair<uint32_t, float> &b);
+bool cmp(const pair<uint32_t, float> &a, const pair<uint32_t, float> &b)
+{
+	return a.second > b.second;
+}
 void main()
 {
 	Heap heap;
@@ -17,18 +24,25 @@ void main()
 	float a;
 	srand((unsigned)time(0));
     
-	vector<pair<uint32_t,float>> result(RESULT_SIZE);
+	Matrix_Vector Result(RESULT_SIZE, POINT_SIZE);
+	vector<pair<uint32_t, float>> result(POINT_SIZE);
 	for (int i = 0; i < RESULT_SIZE; i++)
 	{
-		result[i].first = i + 1;
-		result[i].second = rand_0_1();
-		cout << result[i].second << " " << result[i].first << endl;
+		for (int count = 0; count < POINT_SIZE; count++)
+		{
+			result[count].first = count + 1;
+			result[count].second = rand_0_1();
+		}
+		//heap.heapSort(result, POINT_SIZE);//堆排序 随机产生一个解
+		sort(result.begin(), result.end(), cmp);//STL库自带算法
+
+		for (int j = 0; j < POINT_SIZE; j++)//放入解空间
+		{
+			Result[i][j] = result[j].first;
+		}
 	}
-	heap.heapSort(result, RESULT_SIZE);
-	for (int i = 0; i < RESULT_SIZE; i++)
-	{
-		cout <<result[i].second << " " << result[i].first << endl;
-	}
+	cout << Result;
+
 	while (1);
 	
 
@@ -51,8 +65,5 @@ void main()
 	system("pause");
 
 }
-bool compare(int a, int b)
-{
-	return a > b;//升序
-}
+
 

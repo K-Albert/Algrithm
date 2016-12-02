@@ -68,11 +68,13 @@
     <ClCompile Include="GA_main.cpp" />
     <ClCompile Include="heap.cpp" />
     <ClCompile Include="lxy.cpp" />
+    <ClCompile Include="matrix_vector.cpp" />
     <ClCompile Include="rand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GA.h" />
     <ClInclude Include="heap.h" />
+    <ClInclude Include="matrix_vector.h" />
     <ClInclude Include="rand.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
