@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Algrithm", "Algrithm\Algrit
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GA", "GA\GA.vcxproj", "{F94ACE35-285E-48D7-ABBB-03C62BA37AB5}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "knapsack", "knapsack\knapsack.vcxproj", "{F63FFDA8-97C3-4FB8-83EB-EDEC61C3BCC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -21,6 +23,10 @@ Global
 		{F94ACE35-285E-48D7-ABBB-03C62BA37AB5}.Debug|Win32.Build.0 = Debug|Win32
 		{F94ACE35-285E-48D7-ABBB-03C62BA37AB5}.Release|Win32.ActiveCfg = Release|Win32
 		{F94ACE35-285E-48D7-ABBB-03C62BA37AB5}.Release|Win32.Build.0 = Release|Win32
+		{F63FFDA8-97C3-4FB8-83EB-EDEC61C3BCC8}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F63FFDA8-97C3-4FB8-83EB-EDEC61C3BCC8}.Debug|Win32.Build.0 = Debug|Win32
+		{F63FFDA8-97C3-4FB8-83EB-EDEC61C3BCC8}.Release|Win32.ActiveCfg = Release|Win32
+		{F63FFDA8-97C3-4FB8-83EB-EDEC61C3BCC8}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
