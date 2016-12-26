@@ -57,11 +57,95 @@ void Tour::resultSpace()
 	//cout << Result;
 }
 
-void Tour::cclnewPoP(uint32_t individual)
+void Tour::cclnewPoP(uint32_t i,uint32_t individual)
 {
-	newPoP[individual] = Result[individual];
+	newPoP[i] = Result[individual];
 	//for (int i = 0; i<POINT_SIZE; i++)
 	//	cout << newPoP[individual][i]<<" ";
 	//cout << endl;
 }
+
+
+void Tour::intersect()
+{
+	uint32_t randomID = 0;
+	vector<double> parnt1(POINT_SIZE);
+	vector<double> parnt2(POINT_SIZE);
+	vector<double> child(POINT_SIZE);
+
+	for (int i = 0; i < NEWPOP_SIZE; i++)
+		crossPoP[i] = newPoP[i];
+	for (int i = NEWPOP_SIZE; i < RESULT_SIZE; i++)
+	{
+		randomID = rand_0_1()*NEWPOP_SIZE;//从父代中选择交配对象
+		parnt1 = newPoP[randomID];
+		randomID = rand_0_1()*NEWPOP_SIZE;
+		parnt2 = newPoP[randomID];
+		crossPoP[i] = crossover(parnt1, parnt2);
+	}
+	cout << crossPoP;
+
+}
+
+vector<double>& Tour::crossover(vector<double> &par1, vector<double>&par2)
+{
+	vector<double> child(POINT_SIZE);
+	struct gene
+	{
+		int pos;
+		int flag;
+	};
+
+	vector<gene>tmp_gene(POINT_SIZE);
+
+	int startPos = (int)(rand_0_1()*POINT_SIZE);//是否有可能生成1  导致pos使数组溢出
+	int endPos = (int)(rand_0_1()*POINT_SIZE);
+
+
+
+	if (startPos > endPos)
+	{
+		int tmp = startPos;
+		startPos = endPos;
+		endPos = tmp;
+	}
+	for (int i = startPos; i < endPos; i++)
+		child[i] = par1[i];
+
+	for (int i = endPos; i < POINT_SIZE; i++)
+	{
+		tmp_gene[i].pos = par2[i];
+		tmp_gene[i].flag = 1;
+	}
+	for (int i = 0; i < startPos; i++)
+	{
+		tmp_gene[i].pos = par2[i];
+		tmp_gene[i].flag = 1;
+	}
+
+	for (int i = 0; i < POINT_SIZE; i++)
+	{
+		for (int j = startPos; j < endPos; j++)
+		{
+			if (child[j] == tmp_gene[i].pos)
+				tmp_gene[i].flag = 0;
+		}
+	}
+
+
+	for (int i = endPos; i < POINT_SIZE; i++)
+	{
+		if (tmp_gene[i].flag)
+			child[i] = tmp_gene[i].pos;
+	}
+	for (int i = 0; i < startPos; i++)
+	{
+		if (tmp_gene[i].flag)
+			child[i] = tmp_gene[i].pos;
+	}
+	return child;
+}
+
+
+
 bool cmp(const pair<uint32_t, float> &a, const pair<uint32_t, float> &b){ return a.second > b.second; };

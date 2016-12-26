@@ -48,8 +48,9 @@ void main()
 	tour.resultSpace();	
 	//轮盘赌概率计算
 	ga.bulidWheel(tour);
-	vector<double> test(RESULT_SIZE);
-	for (int i = 0; i < RESULT_SIZE; i++)
+	//生成交配池，目前父代数目是总种群的一半
+	vector<double> test(NEWPOP_SIZE);
+	for (int i = 0; i < NEWPOP_SIZE; i++)
 	{
 		try
 		{
@@ -61,10 +62,18 @@ void main()
 		{
 			cout << str<<endl;
 		}
-		tour.cclnewPoP(individual);
-		test[i] = individual;
-		cout << test[i]<<endl;
+		tour.cclnewPoP(i,individual);
+		//test[i] = individual;
+		//cout << test[i]<<endl;
 	}
+
+	tour.intersect();
+
+
+
+
+
+
 
 	system("pause");
 
