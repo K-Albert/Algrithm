@@ -11,17 +11,17 @@
 #include "Knapsack.h"
 using namespace std;
 
-#define N 10 //物品个数
-#define M 10 //背包个数
+#define N 50 //物品个数
+#define M 5 //背包个数
 
 //vector<double> capicity1 = { 80, 96, 20, 36, 44, 48, 10, 18, 22, 24 };//背包容量
 //vector<double> value1    = { 100 ,600 ,1200, 2400, 500, 2000 };          //物品价值
-vector<double> value1 = { 600.1, 310.5, 1800, 3850, 18.6, 198.7, 882, 4200, 402.5, 327 };
-vector<double> capicity1 = { 450 ,540, 200, 360, 440, 480, 200, 360, 440, 480 };
+//vector<double> value1 = { 600.1, 310.5, 1800, 3850, 18.6, 198.7, 882, 4200, 402.5, 327 };
+//vector<double> capicity1 = { 450 ,540, 200, 360, 440, 480, 200, 360, 440, 480 };
 //vector<double> value1 = { 100 ,220, 90, 400, 300, 400, 205, 120, 160, 580, 400, 140, 100, 1300, 650 };
 //vector<double> capicity1 = { 550, 700, 130, 240, 280, 310, 110, 205, 260, 275 };
-//vector<double> value1 = { 560, 1125, 300, 620, 2100, 431 ,68 ,328, 47, 122, 322 ,196, 41, 25, 425, 4260,416, 115, 82 ,22 ,631, 132, 420 ,86 ,42 ,103 ,215 ,81, 91, 26 ,49 ,420,316, 72, 71 ,49 ,108, 116, 90, 738, 1811, 430, 3060, 215, 58, 296, 620, 418,47, 81};
-//vector<double> capicity1 = { 800, 650, 550, 550 ,650 };
+vector<double> value1 = { 560, 1125, 300, 620, 2100, 431 ,68 ,328, 47, 122, 322 ,196, 41, 25, 425, 4260,416, 115, 82 ,22 ,631, 132, 420 ,86 ,42 ,103 ,215 ,81, 91, 26 ,49 ,420,316, 72, 71 ,49 ,108, 116, 90, 738, 1811, 430, 3060, 215, 58, 296, 620, 418,47, 81};
+vector<double> capicity1 = { 800, 650, 550, 550 ,650 };
 void main()
 {
 	int i = 1;
@@ -35,7 +35,7 @@ void main()
 	double bestFitness=0;
 	srand((unsigned)time(0));
 
-	const char filename[] = "2.txt"; //保存数据的文件
+	const char filename[] = "4.txt"; //保存数据的文件
 	ofstream o_file;   /* 输出流：将数据从内存输出   其中ofstream是将数据输出到文件，因此对于文件来说是“写”*/
 	ifstream i_file;   /*将数据输入到内存，其中ifstream是说输入的数据在文件中，因此对于文件来说是“读”*/
 
@@ -54,6 +54,7 @@ void main()
 		}
 		i_file.close();
 	}
+
 	int individual = 0;
 	int bestIndividual = 0;
 	knapsack.setCapcity(capicity1);          //设置M个背包容量

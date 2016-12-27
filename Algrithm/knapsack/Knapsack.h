@@ -9,7 +9,7 @@ using namespace std;
 #define POP_SIZE 50                //种群大小
 #define PRO_CROSS 0.9            // 交叉概率（所有的个体都需要相互交叉的，这里的交叉率指交叉时每位交叉发生交叉的可能性）  
 #define PRO_MUTATE 0.05            // 变异概率
-#define GENERATION_NUM 1000        // 繁殖代数
+#define GENERATION_NUM 10000        // 繁殖代数
 
 class  Knapsack
 {
