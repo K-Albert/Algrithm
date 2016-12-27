@@ -24,7 +24,7 @@ void Knapsack::initPop(Matrix_Vector &weight, Matrix_Vector& Pop)   //初始化种群
 		{
 			Pop[i][j] = rand() % 2;                      //产生0/1
 		}
-		/*
+		
 	   tmpWeight = cclWeight(weight, Pop[i]);
 		for (int k = 0; k < knapsack_num; k++)           //刨除超重的
 		{
@@ -35,8 +35,7 @@ void Knapsack::initPop(Matrix_Vector &weight, Matrix_Vector& Pop)   //初始化种群
 			}
 			isPop = true;
 		}
-		if (isPop)*/
-      i++;
+		if (isPop) i++;
 	}
 	//cout << Pop;
 }
@@ -96,7 +95,7 @@ Matrix_Vector& Knapsack::crossOver(Matrix_Vector &pop)//群体交叉
 	{
 		for (int j = 0; j < item_num; j++)
 		{
-			if (rand_0_1() < PRO_CROSS)///////////////////////////大于还是小于？
+			if (rand_0_1() > PRO_CROSS)///////////////////////////大于还是小于？
 			{
 				int tmp = pop[i][j];
 				pop[i][j] = pop[i + 1][j];
