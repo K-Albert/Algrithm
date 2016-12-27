@@ -64,11 +64,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Knapsack.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="matrix_vector.cpp" />
     <ClCompile Include="rand.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Knapsack.h" />
     <ClInclude Include="matrix_vector.h" />
     <ClInclude Include="rand.h" />
   </ItemGroup>
