@@ -67,6 +67,36 @@ vector<double> Knapsack::cclFitness(vector<double>&value, Matrix_Vector &pop, Ma
 	return fit;
 }
 
+vector<double> Knapsack::cclFitness(vector<double>&value, Matrix_Vector &pop, Matrix_Vector &weight,int size)//计算种群适应度
+{
+	vector<double> fit(size*POP_SIZE);
+	vector<double> tmpWeight;
+
+	for (int i = 0; i < size*POP_SIZE; i++)
+	{
+
+		for (int j = 0; j < item_num; j++)
+		{
+			fit[i] += pop[i][j] * value[j];
+		}
+		tmpWeight = cclWeight(weight, pop[i]);
+		for (int k = 0; k < knapsack_num; k++)           //超重了适应度为0
+		{
+			if (tmpWeight[k]  > capcity[k])
+			{
+				fit[i] = 0;
+				break;
+			}
+
+		}
+	//	sumFitness += fit[i]; //总适应度，为轮盘赌作准备
+	}
+	return fit;
+}
+
+
+
+
 vector<double> Knapsack::buildWheel(vector<double> & fit) //初始化轮盘
 {
 	vector<double> prob(POP_SIZE);
@@ -89,9 +119,9 @@ int Knapsack::seletIndividual(vector<double>& prob) //轮盘赌选择个体
 	}
 	return -1;
 }
-Matrix_Vector& Knapsack::crossOver(Matrix_Vector &pop)//群体交叉
+Matrix_Vector Knapsack::crossOver(Matrix_Vector pop)//群体交叉,均匀交叉
 {
-	for (int i = 0; i < POP_SIZE; i = i + 2)
+	for (int i = 0; i < POP_SIZE-1; i = i + 1)
 	{
 		for (int j = 0; j < item_num; j++)
 		{
@@ -137,3 +167,68 @@ int Knapsack::sortBest(vector<double>& fit, double bestFitness)
 	if (flag) 	return best;
 	return -1;
 }
+Matrix_Vector&  Knapsack::selectNewPop(Matrix_Vector& tmpPop, Matrix_Vector& newpop, Matrix_Vector& pop, Matrix_Vector& r_pop, vector<double>&value, Matrix_Vector &weight)
+{
+	vector<double> fit;
+	vector<pair<uint32_t, double>> sort_fit( POP_SIZE);
+	for (int i = 0; i < POP_SIZE; i++)
+	{
+		tmpPop[i] = pop[i];
+	}
+	for (int i = POP_SIZE; i < 2 * POP_SIZE; i++)
+	{
+		tmpPop[i] = newpop[i - POP_SIZE];
+	}
+	fit = cclFitness(value, tmpPop, weight, 2);
+
+	for (int i = 0; i < 2 * POP_SIZE; i++)
+	{
+		sort_fit[i].first = i;
+		sort_fit[i].second = fit[i];
+	}
+	sort(sort_fit.begin(), sort_fit.end(), cmp);//STL库自带算法
+
+	for (int i = 0; i < POP_SIZE; i++)
+	{
+		r_pop[i] = tmpPop[sort_fit[i].first];
+	}
+	return r_pop;
+
+}
+
+Matrix_Vector&  Knapsack::selectNewPop( Matrix_Vector& newpop, Matrix_Vector& pop, Matrix_Vector& r_pop, vector<double>&value, Matrix_Vector &weight)
+{
+	vector<double> fit_par;
+	vector<double> fit_child;
+	vector<pair<uint32_t, double>> sort_fit_par(POP_SIZE);
+	vector<pair<uint32_t, double>> sort_fit_child(POP_SIZE);
+
+
+	fit_par = cclFitness(value, pop, weight);
+	fit_child = cclFitness(value, newpop, weight);
+	for (int i = 0; i < POP_SIZE; i++)
+	{
+		sort_fit_par[i].first = i;
+		sort_fit_par[i].second = fit_par[i];
+	}
+	for (int i = 0; i < POP_SIZE; i++)
+	{
+		sort_fit_child[i].first = i;
+		sort_fit_child[i].second = fit_child[i];
+	}
+
+	sort(sort_fit_par.begin(), sort_fit_par.end(), cmp);//STL库自带算法
+	sort(sort_fit_child.begin(), sort_fit_child.end(), cmp);//STL库自带算法
+
+	for (int i = 0; i < POP_SIZE/2; i++)
+	{
+		r_pop[i] = pop[sort_fit_par[i].first];
+	}
+	for (int i = POP_SIZE / 2; i < POP_SIZE ; i++)
+	{
+		r_pop[i] = newpop[sort_fit_child[i-POP_SIZE/2].first];
+	}
+	return r_pop;
+
+}
+bool cmp(const pair<uint32_t, float> &a, const pair<uint32_t, float> &b){ return a.second > b.second; };

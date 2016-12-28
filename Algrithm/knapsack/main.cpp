@@ -28,7 +28,9 @@ void main()
 	Knapsack knapsack(M,N);
 	Matrix_Vector Weight(M,N);
 	Matrix_Vector Population(POP_SIZE,N);
+	Matrix_Vector childPopulation(POP_SIZE, N);
 	Matrix_Vector newPopulation(POP_SIZE, N);
+	Matrix_Vector tmpPopulation((2 * POP_SIZE), N);
 	vector<double> Fitness(POP_SIZE);
 	vector<double> Probility(POP_SIZE);
 	vector<double> Best(N);
@@ -81,16 +83,24 @@ void main()
 			else
 				i--;
 		}
-		newPopulation = knapsack.crossOver(newPopulation); //交叉
-		newPopulation = knapsack.mutation(newPopulation);  //变异
+		childPopulation = knapsack.crossOver(newPopulation); //交叉
+		childPopulation = knapsack.mutation(childPopulation);  //变异
+//		Population = childPopulation;
 
-		Population = newPopulation;
-
+//		Population = knapsack.selectNewPop(tmpPopulation, childPopulation, newPopulation, Population, value1, Weight);
+	//	if (generation < GENERATION_NUM/3*2)
+			Population = childPopulation;
+	//	else                     
+	//	    Population = knapsack.selectNewPop(childPopulation, newPopulation, Population, value1, Weight);
+		
+		
+		cout << bestFitness<<endl;
 	}
 
+	
 
 
-	cout << bestFitness;
+
 	
 
 
