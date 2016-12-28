@@ -13,6 +13,19 @@ vector<double> Knapsack::cclWeight(Matrix_Vector &weight, vector<double>& pop) /
 	}
 	return popSumWeight;
 }
+vector<double> Knapsack::cclWeight(Matrix_Vector &weight, vector<double>& pop,int size) //计算背包重量
+{
+	vector<double> popSumWeight(size);
+
+	for (int i = 0; i < size; i++)
+	{
+		for (int j = 0; j < item_num; j++)
+		{
+			popSumWeight[i] += pop[j] * weight[i][j];   // pop  为0/1  weight为物品重量
+		}
+	}
+	return popSumWeight;
+}
 void Knapsack::initPop(Matrix_Vector &weight, Matrix_Vector& Pop)   //初始化种群
 {
 	vector<double> tmpWeight ;
@@ -43,7 +56,7 @@ vector<double> Knapsack::cclFitness(vector<double>&value, Matrix_Vector &pop, Ma
 {
 	vector<double> fit(POP_SIZE);
 	vector<double> tmpWeight;
-
+	sumFitness = 0;
 	
 	for (int i = 0; i < POP_SIZE; i++)
 	{
@@ -69,17 +82,17 @@ vector<double> Knapsack::cclFitness(vector<double>&value, Matrix_Vector &pop, Ma
 
 vector<double> Knapsack::cclFitness(vector<double>&value, Matrix_Vector &pop, Matrix_Vector &weight,int size)//计算种群适应度
 {
-	vector<double> fit(size*POP_SIZE);
+	vector<double> fit(size);
 	vector<double> tmpWeight;
 
-	for (int i = 0; i < size*POP_SIZE; i++)
+	for (int i = 0; i < size; i++)
 	{
 
 		for (int j = 0; j < item_num; j++)
 		{
 			fit[i] += pop[i][j] * value[j];
 		}
-		tmpWeight = cclWeight(weight, pop[i]);
+		tmpWeight = cclWeight(weight, pop[i], knapsack_num);
 		for (int k = 0; k < knapsack_num; k++)           //超重了适应度为0
 		{
 			if (tmpWeight[k]  > capcity[k])
@@ -179,7 +192,7 @@ Matrix_Vector&  Knapsack::selectNewPop(Matrix_Vector& tmpPop, Matrix_Vector& new
 	{
 		tmpPop[i] = newpop[i - POP_SIZE];
 	}
-	fit = cclFitness(value, tmpPop, weight, 2);
+	fit = cclFitness(value, tmpPop, weight, 2*POP_SIZE);
 
 	for (int i = 0; i < 2 * POP_SIZE; i++)
 	{
@@ -231,4 +244,103 @@ Matrix_Vector&  Knapsack::selectNewPop( Matrix_Vector& newpop, Matrix_Vector& po
 	return r_pop;
 
 }
+
+
+double Knapsack::cclSim(vector<double> &par1, vector<double> &par2)
+{
+	int cnt = 0;
+	int max_cnt = 0;
+	double similarity = 0;
+	for (int i = 0; i < item_num; i++)
+	{
+		if (par1[i] == par2[i])
+		{
+			cnt++;
+			if (cnt>max_cnt) max_cnt = cnt;
+		}
+		else
+		{
+			cnt = 0;
+		}
+	}
+	similarity = max_cnt / item_num;
+	return similarity;
+
+}
+Matrix_Vector& Knapsack::bornChild(Matrix_Vector& childPopulation, Matrix_Vector& Population, vector<double> Fitness, vector<double> &value, Matrix_Vector& weight, Matrix_Vector & pop)
+{
+	vector<double> Probility(POP_SIZE);
+	int par1, par2;
+	double similarity = 0;
+
+	int crossPos = 0;
+	vector<double> child1(item_num);
+	vector<double> child2(item_num);
+	vector<double> fit(4);
+	vector<double> tmpWeight(4);
+	vector<pair<uint32_t, double>> sort_fit(4);
+
+	Probility = buildWheel(Fitness);  //初始化轮盘赌
+
+	for (int i = 0; i < (POP_SIZE * PROPOTIY - 1); i = i + 2)
+	{
+		par1 = seletIndividual(Probility);
+		par2 = seletIndividual(Probility);
+		similarity = cclSim(Population[par1], Population[par2]);
+		if (similarity < 0.6)
+		{
+			crossPos = rand() % (item_num - 1);
+			
+
+			for (int j = 0; j <= crossPos; j++)//交叉
+			{
+				child1[j] = Population[par1][j];
+				child2[j] = Population[par2][j];
+			}
+			for (int j = crossPos + 1; j < item_num; j++)
+			{
+				child1[j] = Population[par2][j];
+				child2[j] = Population[par1][j];
+			}
+
+			for (int j = 0; j<item_num; j++)//变异
+			{
+				if (rand_0_1() > PRO_MUTATE)
+				{
+					child1[j] == 0 ? child1[j] = 1 : child1[j] = 0;
+
+				}
+			}
+			for (int j = 0; j<item_num; j++)//变异
+			{
+				if (rand_0_1() > PRO_MUTATE)
+				{
+					child2[j] == 0 ? child2[j] = 1 : child2[j] = 0;
+
+				}
+			}
+
+			pop[0] = Population[par1];//家庭竞争
+			pop[1] = Population[par2];
+			pop[2] = child1;
+			pop[3] = child2;
+
+
+			fit = cclFitness(value, pop, weight, 4);
+			for (int j = 0; j < 4; j++)
+			{
+				sort_fit[j].first = j;
+				sort_fit[j].second = fit[j];
+			}
+			sort(sort_fit.begin(), sort_fit.end(), cmp);//STL库自带算法
+
+			childPopulation[i] = pop[sort_fit[0].first];
+			childPopulation[i + 1] = pop[sort_fit[1].first];
+
+		}
+		else i = i - 2;
+	}
+	return childPopulation;
+}
+
 bool cmp(const pair<uint32_t, float> &a, const pair<uint32_t, float> &b){ return a.second > b.second; };

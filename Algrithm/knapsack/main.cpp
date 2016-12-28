@@ -31,10 +31,15 @@ void main()
 	Matrix_Vector childPopulation(POP_SIZE, N);
 	Matrix_Vector newPopulation(POP_SIZE, N);
 	Matrix_Vector tmpPopulation((2 * POP_SIZE), N);
+	Matrix_Vector competition( 4 , N);
+
 	vector<double> Fitness(POP_SIZE);
 	vector<double> Probility(POP_SIZE);
 	vector<double> Best(N);
+	vector<pair<uint32_t, double>> sort_fit(POP_SIZE);
+
 	double bestFitness=0;
+
 	srand((unsigned)time(0));
 
 	const char filename[] = "4.txt"; //保存数据的文件
@@ -65,7 +70,7 @@ void main()
 
 	for (int generation = 0; generation < GENERATION_NUM; generation++)
 	{
-		Fitness = knapsack.cclFitness(value1, Population,Weight);  //计算适应度
+		Fitness = knapsack.cclFitness(value1, Population, Weight);  //计算适应度
 
 		bestIndividual = knapsack.sortBest(Fitness, bestFitness);//记录最优个体
 		if (bestIndividual != -1)
@@ -74,6 +79,31 @@ void main()
 			Best = Population[bestIndividual];
 		}
 
+		for (int i = 0; i <  POP_SIZE; i++)
+		{
+			sort_fit[i].first = i;
+			sort_fit[i].second = Fitness[i];
+		}
+		sort(sort_fit.begin(), sort_fit.end(), cmp);//STL库自带算法
+
+
+		childPopulation = knapsack.bornChild(childPopulation, Population, Fitness, value1, Weight, competition);
+		for (int j = POP_SIZE * (PROPOTIY - 0.05); j < POP_SIZE * PROPOTIY; j++)
+		{
+			childPopulation[j] = Population[sort_fit[j - POP_SIZE*(PROPOTIY-0.05)].first];
+		}
+		for (int j = POP_SIZE * PROPOTIY; j < POP_SIZE; j++)
+		{
+			for (int k = 0; k < N; k++)
+			{
+				childPopulation[j][k] = rand() % 2;
+			}
+		}
+
+
+		/*
+		         
+		
 		Probility = knapsack.buildWheel(Fitness);  //初始化轮盘赌
 		for (int i = 0; i < POP_SIZE; i++)        //选择产生交配池
 		{
@@ -83,8 +113,12 @@ void main()
 			else
 				i--;
 		}
+
+
 		childPopulation = knapsack.crossOver(newPopulation); //交叉
 		childPopulation = knapsack.mutation(childPopulation);  //变异
+		*/
+
 //		Population = childPopulation;
 
 //		Population = knapsack.selectNewPop(tmpPopulation, childPopulation, newPopulation, Population, value1, Weight);
