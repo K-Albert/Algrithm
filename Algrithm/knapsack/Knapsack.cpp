@@ -77,6 +77,7 @@ vector<double> Knapsack::cclFitness(vector<double>&value, Matrix_Vector &pop, Ma
 		}
 		sumFitness += fit[i]; //总适应度，为轮盘赌作准备
 	}
+	//cout << sumFitness / POP_SIZE<<endl;
 	return fit;
 }
 
@@ -282,7 +283,7 @@ Matrix_Vector& Knapsack::bornChild(Matrix_Vector& childPopulation, Matrix_Vector
 
 	Probility = buildWheel(Fitness);  //初始化轮盘赌
 
-	for (int i = 0; i < (POP_SIZE * PROPOTIY - 1); i = i + 2)
+	for (int i = 0; i < (POP_SIZE  - 1); i = i + 2)
 	{
 		par1 = seletIndividual(Probility);
 		par2 = seletIndividual(Probility);
@@ -315,6 +316,81 @@ Matrix_Vector& Knapsack::bornChild(Matrix_Vector& childPopulation, Matrix_Vector
 			{
 				if (rand_0_1() > PRO_MUTATE)
 				{
+					child2[j] == 0 ? child2[j] = 1 : child2[j] = 0;
+
+				}
+			}
+
+			pop[0] = Population[par1];//家庭竞争
+			pop[1] = Population[par2];
+			pop[2] = child1;
+			pop[3] = child2;
+
+
+			fit = cclFitness(value, pop, weight, 4);
+			for (int j = 0; j < 4; j++)
+			{
+				sort_fit[j].first = j;
+				sort_fit[j].second = fit[j];
+			}
+			sort(sort_fit.begin(), sort_fit.end(), cmp);//STL库自带算法
+
+			childPopulation[i] = pop[sort_fit[0].first];
+			childPopulation[i + 1] = pop[sort_fit[1].first];
+
+		}
+		else i = i - 2;
+	}
+	return childPopulation;
+}
+
+Matrix_Vector& Knapsack::bornChild2(Matrix_Vector& childPopulation, Matrix_Vector& Population, vector<double> Fitness, vector<double> &value, Matrix_Vector& weight, Matrix_Vector & pop)
+{
+	vector<double> Probility(POP_SIZE);
+	int par1, par2;
+	double similarity = 0;
+
+	int crossPos = 0;
+	vector<double> child1(item_num);
+	vector<double> child2(item_num);
+	vector<double> cross(item_num);
+	vector<double> fit(4);
+	vector<double> tmpWeight(4);
+	vector<pair<uint32_t, double>> sort_fit(4);
+
+	Probility = buildWheel(Fitness);  //初始化轮盘赌
+
+	for (int i = 0; i < (POP_SIZE  - 1); i = i + 2)
+	{
+		par1 = seletIndividual(Probility);
+		par2 = seletIndividual(Probility);
+		similarity = cclSim(Population[par1], Population[par2]);
+		if (similarity < 0.5)
+		{
+			for (int j = 0; j < item_num; j++)
+			{
+				cross[j] = rand() % 2;
+			}
+
+			for (int j = 0; j < item_num; j++) {
+				if (cross[j])
+				{
+					child1[j] = Population[par2][j];
+					child2[j] = Population[par1][j];
+				}
+				else
+				{
+					child2[j] = Population[par2][j];
+					child1[j] = Population[par1][j];
+				}
+			}
+
+
+			for (int j = 0; j<item_num; j++)//变异
+			{
+				if (rand_0_1() > PRO_MUTATE)
+				{
+					child1[j] == 0 ? child1[j] = 1 : child1[j] = 0;
 					child2[j] == 0 ? child2[j] = 1 : child2[j] = 0;
 
 				}

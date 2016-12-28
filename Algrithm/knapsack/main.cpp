@@ -87,18 +87,18 @@ void main()
 		sort(sort_fit.begin(), sort_fit.end(), cmp);//STL¿â×Ô´øËã·¨
 
 
-		childPopulation = knapsack.bornChild(childPopulation, Population, Fitness, value1, Weight, competition);
-		for (int j = POP_SIZE * (PROPOTIY - 0.05); j < POP_SIZE * PROPOTIY; j++)
-		{
-			childPopulation[j] = Population[sort_fit[j - POP_SIZE*(PROPOTIY-0.05)].first];
-		}
-		for (int j = POP_SIZE * PROPOTIY; j < POP_SIZE; j++)
-		{
-			for (int k = 0; k < N; k++)
-			{
-				childPopulation[j][k] = rand() % 2;
-			}
-		}
+		childPopulation = knapsack.bornChild2(childPopulation, Population, Fitness, value1, Weight, competition);
+		//for (int j = POP_SIZE * (PROPOTIY ); j < POP_SIZE ; j++)
+		//{
+		//	childPopulation[j] = Population[sort_fit[j - POP_SIZE*(PROPOTIY)].first];
+		//}
+		//for (int j = POP_SIZE * PROPOTIY; j < POP_SIZE; j++)
+		//{
+		//	for (int k = 0; k < N; k++)
+		//	{
+		//		childPopulation[j][k] = rand() % 2;
+		//	}
+		//}
 
 
 		/*
@@ -129,6 +129,11 @@ void main()
 		
 		
 		cout << bestFitness<<endl;
+		if (bestFitness == 16537)
+		{
+			cout << generation << endl;
+			break;
+		}
 	}
 
 	
